@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:background="#151515">
+
+    <TextView
+        android:id="@+id/optionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFF"
+        android:text="Select an option"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:layout_marginTop="30dp"
+        />
+
+    <Button
+        android:id="@+id/medicareButton"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="25dp"
+        android:layout_below="@id/optionText"
+        android:layout_marginTop="50dp"
+        android:text="Medicare Details"
+        style="@style/personal_buttons"
+        />
+    <Button
+        android:id="@+id/manualButton"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="50dp"
+        android:text="Manually"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@id/optionText"
+        android:layout_toRightOf="@id/medicareButton"
+        style="@style/personal_buttons"
+        />
+    </RelativeLayout>

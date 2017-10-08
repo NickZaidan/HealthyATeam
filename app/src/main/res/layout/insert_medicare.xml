@@ -1,0 +1,100 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:background="#151515">
+
+    <TextView
+        android:id="@+id/insertMedicareText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFF"
+        android:text="Insert Medicare Number"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_marginTop="30dp"
+        />
+    <EditText
+        android:id="@+id/insertMedicareNumber"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/insertMedicareText"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="#FFF"
+        android:maxLength="10"
+
+        />
+
+    <EditText
+        android:id="@+id/insertMedicareNumberID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/insertMedicareText"
+        android:layout_toRightOf="@id/insertMedicareNumber"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="#FFF"
+        android:maxLength="1"
+        />
+
+    <TextView
+        android:id="@+id/insertMedicareProblem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFF"
+        android:layout_below="@id/insertMedicareNumber"
+        android:text="Insert Problem"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_marginTop="30dp"
+        />
+
+    <EditText
+        android:id="@+id/insertMedicareProblemText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/insertMedicareProblem"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="#FFF"
+        />
+    <TextView
+        android:id="@+id/etaTextMedicare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/insertMedicareProblemText"
+        android:textColor="#FFF"
+        android:text="Select ETA"
+        android:textSize="20dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        />
+    <Spinner
+        android:id="@+id/medicareETA"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etaTextMedicare"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:entries="@array/ETA"
+        android:background="#FFF"
+        />
+
+    <Button
+        android:id="@+id/submitMedicare"
+        android:layout_below="@id/medicareETA"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        style="@style/personal_buttons"
+        />/>
+</RelativeLayout>

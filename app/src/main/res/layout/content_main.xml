@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:background="#151515">
+    <TextView
+        android:id = "@+id/home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Homepage"
+        android:textAlignment="center"
+        style="@style/Title"
+
+        />
+    <Button
+        android:id = "@+id/firstTile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/home"
+        android:text="Submit Ticket"
+        android:textColor="#FFF"
+        android:background="@drawable/oval_shape"
+        />
+    <Button
+        android:id="@+id/secondTile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/firstTile"
+        android:text="Call 000"
+        android:textColor="#FFF"
+        style="@style/personal_buttons"
+        />
+    <Button
+        android:id="@+id/thirdTile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/home"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="200dp"
+        android:text="Option 3"
+        android:textColor="#FFF"
+        style="@style/personal_buttons"
+        />
+
+    <Button
+        android:id="@+id/fourthTile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/thirdTile"
+        android:layout_marginTop="10dp"
+        android:text = "Option 4"
+        android:layout_marginLeft="200dp"
+        android:textColor="#FFF"
+        style="@style/personal_buttons"
+        />
+    </RelativeLayout>

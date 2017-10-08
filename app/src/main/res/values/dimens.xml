@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="my_branding_image_side_length">45dp</dimen>
+</resources>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "810324535166",
+    "firebase_url": "https://healthy-a-team-3400.firebaseio.com",
+    "project_id": "healthy-a-team-3400",
+    "storage_bucket": "healthy-a-team-3400.appspot.com/"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:810324535166:android:8e14ee65254fa926",
+        "android_client_info": {
+          "package_name": "com.example.ninjawaffle.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "810324535166-q0c87a3t0l9v0pab6f3kd23ks1s1491h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYox1vb61gyc37Gxh29OdH5EC0VAcClYg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

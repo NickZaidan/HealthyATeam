@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Healthy A Team</string>
+    <string name="action_settings">Settings</string>
+    <string name="edit_name_label">Insert Name</string>
+    <string name="insert_problem">Insert Problem</string>
+    <string-array name="Gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Intersex</item>
+    </string-array>
+
+    <string-array name="ETA">
+       <item>&lt; 15 Minutes</item>
+       <item>30 Minutes</item>
+       <item>45 Minutes</item>
+       <item>60 Minutes</item>
+    </string-array>
+</resources>
