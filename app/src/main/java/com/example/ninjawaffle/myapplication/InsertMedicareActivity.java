@@ -61,7 +61,7 @@ public class InsertMedicareActivity extends AppCompatActivity {
         String medicareETA = this.medicareETA.getSelectedItem().toString();
 
         if(errorChecking(medicareNumber, medicareID, medicareProblem)==true){
-            String id = medicareNumber + medicareID; //Combining the complete medicare number
+            String id = medicareNumber + medicareID; //Combining the complete medicare amountOfEntries
             Problem problem = new Problem(medicareProblem, id, medicareETA); //Creating problem object
             Medicare medicare = new Medicare(id);
             String problemId = databaseMedicare.push().getKey(); //The unique problem id for database storage
@@ -85,21 +85,21 @@ public class InsertMedicareActivity extends AppCompatActivity {
             return false;
         }
 
-        //If medicare number isn't 10 characters in length
+        //If medicare amountOfEntries isn't 10 characters in length
         if(medicareNumber.length() != 10){
-            Toast.makeText(this, "Insert a correct medicare number", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Insert a correct medicare amountOfEntries", Toast.LENGTH_LONG).show();
             return false;
         }
 
-        //If medicare number isn't a number
+        //If medicare amountOfEntries isn't a amountOfEntries
         if(!medicareNumber.matches("[0-9]+")){
-            Toast.makeText(this, "Insert a correct medicare number", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Insert a correct medicare amountOfEntries", Toast.LENGTH_LONG).show();
             return false;
         }
 
-        //If medicare lastdigit isn't a number
+        //If medicare lastdigit isn't a amountOfEntries
         if(!medicareID.matches("[0-9]+")){
-            Toast.makeText(this, "Insert a correct medicare final number", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Insert a correct medicare final amountOfEntries", Toast.LENGTH_LONG).show();
             return false;
         }
 
