@@ -85,10 +85,43 @@
         android:entries="@array/ETA"
         android:background="#FFF"
         />
+    <TextView
+        android:id="@+id/hospitalTextMedicare"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/medicareETA"
+        android:text="Select hospital"
+        android:textSize="20dp"
+        android:textColor="#FFF"/>
+    <Spinner
+        android:id="@+id/hospitalSpinnerXMLMedicare"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@id/hospitalTextMedicare"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="#FFF"
+        />
+    <Button
+        android:id="@+id/submitPhotoMedicare"
+        android:layout_below="@id/hospitalSpinnerXMLMedicare"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Upload photo"
+        style="@style/personal_buttons"
+        />
 
     <Button
         android:id="@+id/submitMedicare"
-        android:layout_below="@id/medicareETA"
+        android:layout_below="@id/submitPhotoMedicare"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
@@ -96,5 +129,5 @@
         android:layout_height="wrap_content"
         android:text="Submit"
         style="@style/personal_buttons"
-        />/>
+        />
 </RelativeLayout>

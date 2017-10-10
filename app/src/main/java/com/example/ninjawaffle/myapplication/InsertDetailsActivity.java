@@ -39,6 +39,9 @@ import java.util.Map;
 public class InsertDetailsActivity extends AppCompatActivity {
     long amountOfEntries;
     ArrayAdapter<String> spinnerAdapter;
+    Uri uri = null;
+    String actualId;
+    String problemId;
 
     //XML Declaration variables
     EditText uniqueId;
@@ -134,19 +137,7 @@ public class InsertDetailsActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 0 && resultCode == RESULT_OK){
-            Uri uri = data.getData();
-            StorageReference filePath = databaseStorage.child("Photos").child(uri.getLastPathSegment());
-            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(InsertDetailsActivity.this, "Upload Done", Toast.LENGTH_LONG).show();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(InsertDetailsActivity.this, "Photo was not uploaded", Toast.LENGTH_LONG).show();
-                }
-            });
+            uri = data.getData();
         }
 
     }
@@ -176,8 +167,25 @@ public class InsertDetailsActivity extends AppCompatActivity {
 
         if(errorChecking(firstName, secondName, phone, dob, problem, tempId)==true){ //Runs the error checking function
             addPersonFunction(firstName, secondName, phone, dob, gender, problem, tempId, eta); //Put messing code function at the bottom
-            }
+            uploadingPhoto();
+        }
 
+    }
+
+    private void uploadingPhoto(){
+        if (uri != null) {
+            StorageReference filePath = databaseStorage.child(actualId).child(problemId);
+            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(InsertDetailsActivity.this, "Photo was not uploaded", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 
     private boolean errorChecking(String firstName, String lastName, String phone, String dob, String problem, String tempId ){
@@ -218,14 +226,26 @@ public class InsertDetailsActivity extends AppCompatActivity {
             return false;
         }
 
+
+
+        //If phone number isn't valid
+        if(phone.length()!=10){
+            Toast.makeText(this, "Invalid phone number.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if(phone.length()!=8){
+            Toast.makeText(this, "Invalid phone number.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
         return true;
     }
 
     private void addPersonFunction(String firstName, String secondName, String phone, String dob, String gender, String problem, String tempId, String eta){
-        String actualId = tempId + firstName + secondName;//Declaring unique id
+        actualId = tempId + firstName + secondName;//Declaring unique id
         Person person = new Person(actualId, firstName,secondName,phone,dob,gender); //Creating the person object
         Problem problemObject = new Problem(problem, actualId, eta); //Creating the problem object
-        String problemId = databasePerson.push().getKey(); //The unique problem id for database storage
+        problemId = databasePerson.push().getKey(); //The unique problem id for database storage
         Map<String, Object> postValues = person.toMap(); //Storing object in a map
         Map<String, Object> postValues2 = problemObject.toMap(); //Storing problems in a map
         Map<String, Object> childUpdate = new HashMap<>(); //Person hashmap to be put in database
@@ -234,7 +254,7 @@ public class InsertDetailsActivity extends AppCompatActivity {
         childUpdate2.put("/" + problemId + "/", postValues2); //Directory of where to put problem in database
         databasePerson.updateChildren(childUpdate); //Updating
         databaseProblem.updateChildren(childUpdate2); //Updating
-        Toast.makeText(this, "Person added", Toast.LENGTH_LONG).show(); //A toast is just like a display message. This will notify people that the push was successful
+        Toast.makeText(this, "Problem added", Toast.LENGTH_LONG).show(); //A toast is just like a display message. This will notify people that the push was successful
 
     }
 }

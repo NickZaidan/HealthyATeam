@@ -1,17 +1,30 @@
 package com.example.ninjawaffle.myapplication;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,14 +35,23 @@ import java.util.Map;
 
 public class InsertMedicareActivity extends AppCompatActivity {
     //Variable declaration
+    long amountOfEntries = 0;
+    DatabaseReference databaseMedicarePerson;
+    DatabaseReference databaseMedicare;
+    ArrayAdapter<String> spinnerAdapter;
+    String id;
+    String problemId;
+    Uri uri = null;
+    StorageReference databaseStorage;
 
+    //XML declaration
     EditText medicareNumber;
     EditText medicareNumberID;
     EditText medicareProblem;
     Spinner medicareETA;
+    Spinner hospitalSpinner;
     Button submitButton;
-    DatabaseReference databaseMedicarePerson;
-    DatabaseReference databaseMedicare;
+    Button submitPhoto;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +62,27 @@ public class InsertMedicareActivity extends AppCompatActivity {
         medicareNumberID = (EditText) findViewById(R.id.insertMedicareNumberID);
         medicareProblem = (EditText) findViewById(R.id.insertMedicareProblemText);
         medicareETA = (Spinner) findViewById(R.id.medicareETA);
+        hospitalSpinner = (Spinner) findViewById(R.id.hospitalSpinnerXMLMedicare);
         submitButton = (Button) findViewById(R.id.submitMedicare);
+        submitPhoto = (Button) findViewById(R.id.submitPhotoMedicare);
         databaseMedicarePerson = FirebaseDatabase.getInstance().getReference("Users");
         databaseMedicare = FirebaseDatabase.getInstance().getReference("Problems"); //This links the firebase database to the variable
+        databaseStorage = FirebaseStorage.getInstance().getReference();
+
+        //Assigning amount of entries to global variable of amountOfEntries
+        databaseMedicare.child("").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                amountOfEntries = dataSnapshot.getChildrenCount();
+                updateSpinner(); //Updating Spinner option
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         //Pressing the submit button entry
         submitButton.setOnClickListener(new Button.OnClickListener(){
@@ -51,6 +91,41 @@ public class InsertMedicareActivity extends AppCompatActivity {
                 submitEntry();
             }
         });
+
+        submitPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, 0);
+            }
+        });
+    }
+
+    //Uploading photos function
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 0 && resultCode == RESULT_OK){
+            uri = data.getData();
+        }
+
+    }
+
+
+
+    private void updateSpinner(){
+        String input = "Westmead Hospital - " + amountOfEntries + " patients";
+        ArrayList<String> test = new ArrayList<>();
+        test.add("Auburn - 3 patients");
+        test.add("Blacktown - 8 patients");
+        test.add("Mount Druitt - 15 patients");
+        test.add(input);
+        spinnerAdapter = new ArrayAdapter<>(InsertMedicareActivity.this, android.R.layout.simple_spinner_item,test);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        hospitalSpinner.setAdapter(spinnerAdapter);
+        spinnerAdapter.notifyDataSetChanged();
     }
 
     private void submitEntry(){
@@ -61,21 +136,11 @@ public class InsertMedicareActivity extends AppCompatActivity {
         String medicareETA = this.medicareETA.getSelectedItem().toString();
 
         if(errorChecking(medicareNumber, medicareID, medicareProblem)==true){
-            String id = medicareNumber + medicareID; //Combining the complete medicare amountOfEntries
-            Problem problem = new Problem(medicareProblem, id, medicareETA); //Creating problem object
-            Medicare medicare = new Medicare(id);
-            String problemId = databaseMedicare.push().getKey(); //The unique problem id for database storage
-            Map<String, Object> postValues = problem.toMap(); //Storing object in a map
-            Map<String, Object> postValues2 = medicare.toMap();
-            Map<String, Object> childUpdate = new HashMap<>(); //Person hashmap to be put in database
-            Map<String, Object> childUpdate2 = new HashMap<>();
-            childUpdate.put("/" + problemId + "/", postValues); //Directory of where to put problem in database
-            childUpdate2.put("/" + "MedicareEntry" + "/" +  id, postValues2); //Directory of where to put problem in database
-            databaseMedicare.updateChildren(childUpdate); //Updating
-            databaseMedicarePerson.updateChildren(childUpdate2);
-            Toast.makeText(this, "Problem Submitted", Toast.LENGTH_LONG).show(); //A toast is just like a display message. This will notify people that the push was successful
+            addPersonFunction(medicareNumber, medicareID, medicareProblem, medicareETA);
+            uploadingPhoto();
         }
     }
+
 
     private boolean errorChecking(String medicareNumber, String medicareID, String medicareProblem){
 
@@ -104,5 +169,37 @@ public class InsertMedicareActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    private void uploadingPhoto(){
+        if (uri != null) {
+            StorageReference filePath = databaseStorage.child(id).child(problemId);
+            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(InsertMedicareActivity.this, "Photo was not uploaded", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+    }
+
+    private void addPersonFunction(String medicareNumber, String medicareID, String problemDescription, String medicareETA){
+        id = medicareNumber + medicareID; //Combining the complete medicare amountOfEntries
+        Problem problem = new Problem(problemDescription, id, medicareETA); //Creating problem object
+        Medicare medicare = new Medicare(id);
+        problemId = databaseMedicare.push().getKey(); //The unique problem id for database storage
+        Map<String, Object> postValues = problem.toMap(); //Storing object in a map
+        Map<String, Object> postValues2 = medicare.toMap();
+        Map<String, Object> childUpdate = new HashMap<>(); //Person hashmap to be put in database
+        Map<String, Object> childUpdate2 = new HashMap<>();
+        childUpdate.put("/" + problemId + "/", postValues); //Directory of where to put problem in database
+        childUpdate2.put("/" + "MedicareEntry" + "/" +  id, postValues2); //Directory of where to put problem in database
+        databaseMedicare.updateChildren(childUpdate); //Updating
+        databaseMedicarePerson.updateChildren(childUpdate2);
+        Toast.makeText(this, "Problem Submitted", Toast.LENGTH_LONG).show(); //A toast is just like a display message. This will notify people that the push was successful
     }
 }
