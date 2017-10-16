@@ -16,6 +16,7 @@ public class Problem {
     String timeArrived;
     String id;
     String eta;
+    String additional;
 
 
     //An empty constructor to make sure program doesnt crash when invalid inputs are stored
@@ -23,11 +24,12 @@ public class Problem {
 
     }
 
-    public Problem(String problem, String id, String eta) {
+    public Problem(String problem, String id, String eta, String additional) {
         this.problem = problem;
         this.id = id;
         this.currentTime = DateFormat.getDateTimeInstance().format(new Date());
         this.timeArrived = " ";
+        this.additional = additional;
         this.eta = eta;
 
     }
@@ -39,6 +41,7 @@ public class Problem {
         result.put("timeArrived", timeArrived);
         result.put("personID", id);
         result.put("ETA", eta);
+        result.put("additionalSymptoms", additional);
         return result;
     }
 }

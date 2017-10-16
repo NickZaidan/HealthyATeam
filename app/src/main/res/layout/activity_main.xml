@@ -3,251 +3,278 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#151515">
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:background="@drawable/poly_bg"
     >
-    <TextView
-        android:id="@+id/personalId"
-        android:textAlignment="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:labelFor="@+id/editText"
-        android:text="Insert Personal Key"
-        android:textColor="#FFF"
-        />
 
-    <EditText
-        android:id="@+id/insertPersonalId"
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:textAlignment="center"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:background="#FFF"
-        />
-    <TextView
-        android:id="@+id/textView"
-        android:textAlignment="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:labelFor="@+id/editText"
-        android:text="Insert First Name"
-        android:textColor="#FFF"/>
+        android:layout_height="match_parent"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        >
+
+        <TextView
+            android:id="@+id/medicareTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit manually"
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            style="@style/screen_title"
+            />
+
+        <View
+            android:id="@+id/breakerTwo"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/medicareTitle"
+            android:layout_marginTop="10dp"
+            android:background="#979797"
+            />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:text="return"
+            style="@style/buttons"
+            android:layout_above="@+id/breakerTwo"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:labelFor="@+id/editText"
+            android:layout_below="@+id/breakerTwo"
+            android:text="First Name*"
+            style="@style/form_label"
+            />
 
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="match_parent"
-        android:textAlignment="center"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:inputType="textPersonName"
-        android:background="#FFF"
-         />
-    <TextView
-        android:id="@+id/lastname"
-        android:text="Insert Last Name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#FFF"
-        android:textAlignment="center"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        />
-    <EditText
-        android:id="@+id/insertLast"
-        android:textAlignment="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:background="#FFF"
-        />
-    <TextView
-        android:id="@+id/DOB"
-        android:textAlignment="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:labelFor="@+id/editText"
-        android:text="Insert Date of Birth"
-        android:textColor="#FFF"/>
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:ems="10"
+            android:layout_marginRight="20dp"
+            android:inputType="textPersonName"
+            android:hint="First Name"
+            android:layout_below="@+id/textView"
+            style="@style/form_input"
+            />
 
-    <EditText
-        android:id="@+id/insertDOB"
-        android:textAlignment="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:inputType="textPersonName"
-        android:background="#FFF"
-        />
-    <TextView
-        android:id="@+id/phoneNumber"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:textAlignment="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Insert Phone Number"
-        android:textColor="#FFF"
-        />
+        <TextView
+            android:id="@+id/lastname"
+            android:text="Last Name*"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/form_label"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/editText"
+            />
 
-    <EditText
-        android:id="@+id/insertPhoneNumber"
-        android:textAlignment="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:background="#FFF"
-        />
+        <EditText
+            android:id="@+id/insertLast"
+            android:layout_width="match_parent"
+            android:ems="10"
+            android:layout_marginRight="20dp"
+            android:inputType="textPersonName"
+            android:hint="Last Name"
+            android:layout_below="@+id/lastname"
+            style="@style/form_input"
+            />
 
-    <TextView
-        android:id="@+id/gender"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:textAlignment="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Insert Gender"
-        android:textColor="#FFF" />
-    <Spinner
-        android:id="@+id/genderSpinner"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:entries="@array/Gender"
-        android:background="#FFF"
-        />
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:textAlignment="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/insert_problem"
-        android:textColor="#FFF"
-        />
+        <TextView
+            android:id="@+id/DOB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:labelFor="@+id/editText"
+            android:text="Date of Birth*"
+            style="@style/form_label"
+            android:layout_below="@+id/insertLast"
+            />
 
-    <EditText
-        android:id="@+id/editText2"
-        android:textAlignment="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:background="#FFF"
-         />
-    <TextView
-        android:id="@+id/etaText"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:textAlignment="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Estimated Time of Arrival"
-        android:textColor="#FFF"/>
-    <Spinner
-        android:id="@+id/etaSpinner"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:entries="@array/ETA"
-        android:background="#FFF"
-        />
-    <TextView
-        android:id="@+id/hospitalText"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:textAlignment="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Select hospital"
-        android:textColor="#FFF"/>
-    <Spinner
-        android:id="@+id/hospitalSpinnerXML"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:background="#FFF"
-        />
+        <EditText
+            android:id="@+id/insertDOB"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/DOB"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="DD/MM/YYYY"
+            style="@style/form_input"
+            />
 
-    <Button
-        android:id="@+id/pictureUpload"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_gravity="center"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="Upload Picture"
-        style="@style/personal_buttons"
-        />
-    <Button
-        android:id="@+id/button2"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_gravity="center"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        style="@style/personal_buttons"
-        />
+        <TextView
+            android:id="@+id/phoneNumber"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="70dp"
+            android:layout_toRightOf="@+id/DOB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone Number*"
+            style="@style/form_label"
+            android:layout_below="@+id/insertLast"
+            />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:text="Return"
-        style="@style/personal_buttons"
-        />
+        <EditText
+            android:id="@+id/insertPhoneNumber"
+            android:layout_width="300dp"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@+id/insertDOB"
+            android:layout_alignLeft="@+id/phoneNumber"
+            android:background="@drawable/border"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="04XXXXXXXX"
+            style="@style/form_input"
+            android:layout_below="@+id/phoneNumber"
+            />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sex*"
+            style="@style/form_label"
+            android:layout_below="@id/insertPhoneNumber"
+            />
+
+        <Spinner
+            android:id="@+id/genderSpinner"
+            android:layout_height="40dp"
+            android:layout_width="fill_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:entries="@array/Gender"
+            android:layout_below="@id/gender"
+            android:hint="Select sex"
+            style="@style/spinner_style"
+            />
+
+        <View
+            android:id="@+id/breaker_One"
+            android:layout_below="@+id/genderSpinner"
+            style="@style/breaker_line"
+            />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/breaker_One"
+            android:text="Symptoms*"
+            style="@style/form_label"
+            />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:gravity="left"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/textView2"
+            android:ems="10"
+            android:inputType="textPersonName|textMultiLine"
+            android:hint="@string/symptoms"
+            android:scrollHorizontally="false"
+            style="@style/form_input"
+            />
+
+        <Button
+            android:id="@+id/pictureUpload"
+            android:layout_gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:text="Upload Picture"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/editText2"
+            style="@style/buttons"
+            />
+
+        <TextView
+            android:id="@+id/additional"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pictureUpload"
+            android:text="Is there anything else we should know?"
+            style="@style/form_label"
+            />
+
+        <EditText
+            android:id="@+id/insertAdditional"
+            android:gravity="left"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/additional"
+            android:ems="10"
+            android:inputType="textPersonName|textMultiLine"
+            android:hint="@string/additional_hint"
+            style="@style/form_input"
+            />
+
+        <View
+            android:id="@+id/breaker_Two"
+            android:layout_below="@+id/insertAdditional"
+            style="@style/breaker_line"
+            />
+
+        <TextView
+            android:id="@+id/etaText"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:textAlignment="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estimated Time of Arrival"
+            style="@style/form_label"
+            android:layout_below="@id/breaker_Two"
+            />
+        <Spinner
+            android:id="@+id/etaSpinner"
+            android:layout_width="fill_parent"
+            android:entries="@array/ETA"
+            android:layout_below="@id/etaText"
+            style="@style/spinner_style"
+            />
+
+        <TextView
+            android:id="@+id/hospitalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etaSpinner"
+            android:text="Select your hospital"
+            style="@style/form_label"
+            />
+
+        <Spinner
+            android:id="@+id/hospitalSpinnerXML"
+            android:layout_width="match_parent"
+            style="@style/spinner_style"
+            android:layout_below="@id/hospitalText"
+            />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_height="wrap_content"
+            style="@style/submit_btn"
+            android:layout_below="@+id/hospitalSpinnerXML"
+            />
+
+    </RelativeLayout>
 </ScrollView>

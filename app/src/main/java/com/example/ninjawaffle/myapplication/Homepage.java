@@ -28,8 +28,6 @@ public class Homepage extends AppCompatActivity {
         //Assiging variables to button
         topLeft = (Button) findViewById(R.id.firstTile);
         bottomLeft = (Button) findViewById(R.id.secondTile);
-        topRight = (Button) findViewById(R.id.thirdTile);
-        bottomRight = (Button) findViewById(R.id.fourthTile);
 
         //Button events
 

@@ -48,10 +48,12 @@ public class InsertMedicareActivity extends AppCompatActivity {
     EditText medicareNumber;
     EditText medicareNumberID;
     EditText medicareProblem;
+    EditText extraComments;
     Spinner medicareETA;
     Spinner hospitalSpinner;
     Button submitButton;
     Button submitPhoto;
+    Button returnButton;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,13 +63,16 @@ public class InsertMedicareActivity extends AppCompatActivity {
         medicareNumber = (EditText) findViewById(R.id.insertMedicareNumber);
         medicareNumberID = (EditText) findViewById(R.id.insertMedicareNumberID);
         medicareProblem = (EditText) findViewById(R.id.insertMedicareProblemText);
+        extraComments = (EditText) findViewById(R.id.insertAdditionalMedicare);
         medicareETA = (Spinner) findViewById(R.id.medicareETA);
         hospitalSpinner = (Spinner) findViewById(R.id.hospitalSpinnerXMLMedicare);
         submitButton = (Button) findViewById(R.id.submitMedicare);
         submitPhoto = (Button) findViewById(R.id.submitPhotoMedicare);
+        returnButton = (Button) findViewById(R.id.button3return);
         databaseMedicarePerson = FirebaseDatabase.getInstance().getReference("Users");
         databaseMedicare = FirebaseDatabase.getInstance().getReference("Problems"); //This links the firebase database to the variable
         databaseStorage = FirebaseStorage.getInstance().getReference();
+
 
         //Assigning amount of entries to global variable of amountOfEntries
         databaseMedicare.child("").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -83,7 +88,13 @@ public class InsertMedicareActivity extends AppCompatActivity {
             }
         });
 
-
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(InsertMedicareActivity.this, Homepage.class);
+                startActivity(intent); //
+            }
+        });
         //Pressing the submit button entry
         submitButton.setOnClickListener(new Button.OnClickListener(){
             @Override
@@ -134,9 +145,9 @@ public class InsertMedicareActivity extends AppCompatActivity {
         String medicareID = this.medicareNumberID.getText().toString().trim();
         String medicareProblem = this.medicareProblem.getText().toString().trim();
         String medicareETA = this.medicareETA.getSelectedItem().toString();
-
+        String additional = this.extraComments.getText().toString().trim();
         if(errorChecking(medicareNumber, medicareID, medicareProblem)==true){
-            addPersonFunction(medicareNumber, medicareID, medicareProblem, medicareETA);
+            addPersonFunction(medicareNumber, medicareID, medicareProblem, medicareETA, additional);
             uploadingPhoto();
         }
     }
@@ -152,19 +163,19 @@ public class InsertMedicareActivity extends AppCompatActivity {
 
         //If medicare amountOfEntries isn't 10 characters in length
         if(medicareNumber.length() != 10){
-            Toast.makeText(this, "Insert a correct medicare amountOfEntries", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Insert a correct medicare number", Toast.LENGTH_LONG).show();
             return false;
         }
 
         //If medicare amountOfEntries isn't a amountOfEntries
         if(!medicareNumber.matches("[0-9]+")){
-            Toast.makeText(this, "Insert a correct medicare amountOfEntries", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Insert a correct medicare number", Toast.LENGTH_LONG).show();
             return false;
         }
 
-        //If medicare lastdigit isn't a amountOfEntries
+        //If medicare last digit isn't a amountOfEntries
         if(!medicareID.matches("[0-9]+")){
-            Toast.makeText(this, "Insert a correct medicare final amountOfEntries", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Insert a correct final medicare number", Toast.LENGTH_LONG).show();
             return false;
         }
 
@@ -187,9 +198,9 @@ public class InsertMedicareActivity extends AppCompatActivity {
         }
     }
 
-    private void addPersonFunction(String medicareNumber, String medicareID, String problemDescription, String medicareETA){
+    private void addPersonFunction(String medicareNumber, String medicareID, String problemDescription, String medicareETA, String additional){
         id = medicareNumber + medicareID; //Combining the complete medicare amountOfEntries
-        Problem problem = new Problem(problemDescription, id, medicareETA); //Creating problem object
+        Problem problem = new Problem(problemDescription, id, medicareETA, additional); //Creating problem object
         Medicare medicare = new Medicare(id);
         problemId = databaseMedicare.push().getKey(); //The unique problem id for database storage
         Map<String, Object> postValues = problem.toMap(); //Storing object in a map

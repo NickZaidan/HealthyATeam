@@ -1,40 +1,61 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:background="#151515">
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:background="@drawable/poly_bg">
 
     <TextView
         android:id="@+id/optionText"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#FFFF"
         android:text="Select an option"
-        android:gravity="center"
-        android:textSize="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
+        style="@style/screen_title"
+        />
+
+    <View
+        android:id="@+id/breaker"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/optionText"
+        android:layout_marginTop="10dp"
+        android:background="#979797"
+        />
+
+    <TextView
+        android:id="@+id/optionInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please choose an option based on how you wish to submit to the emergency department"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/breaker"
         />
 
     <Button
         android:id="@+id/medicareButton"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginLeft="25dp"
-        android:layout_below="@id/optionText"
-        android:layout_marginTop="50dp"
-        android:text="Medicare Details"
-        style="@style/personal_buttons"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
+        android:text="Medicare\nDetails"
+        android:textSize="22sp"
+        style="@style/green_button"
+        android:layout_below="@+id/optionInfo"
+        android:layout_alignLeft="@+id/manualButton" />
     <Button
         android:id="@+id/manualButton"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="22sp"
         android:text="Manually"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@id/optionText"
-        android:layout_toRightOf="@id/medicareButton"
-        style="@style/personal_buttons"
-        />
+        style="@style/green_button"
+        android:layout_below="@+id/medicareButton"
+        android:layout_centerHorizontal="true" />
     </RelativeLayout>

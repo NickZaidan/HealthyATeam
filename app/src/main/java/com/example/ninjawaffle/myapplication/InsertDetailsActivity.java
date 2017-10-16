@@ -42,6 +42,7 @@ public class InsertDetailsActivity extends AppCompatActivity {
     Uri uri = null;
     String actualId;
     String problemId;
+    String dobClassVariable;
 
     //XML Declaration variables
     EditText uniqueId;
@@ -49,6 +50,7 @@ public class InsertDetailsActivity extends AppCompatActivity {
     EditText secondNameText;
     EditText mobilePhoneNumber;
     EditText dobText;
+    EditText extraComments;
     Spinner genderText;
     Spinner etaSpinner;
     Spinner hospitalSpinner;
@@ -69,7 +71,6 @@ public class InsertDetailsActivity extends AppCompatActivity {
         databaseStorage = FirebaseStorage.getInstance().getReference();
         databasePerson = FirebaseDatabase.getInstance().getReference("Users"); //This links the firebase database to the variable
         databaseProblem = FirebaseDatabase.getInstance().getReference("Problems");
-        uniqueId = (EditText) findViewById(R.id.insertPersonalId);
         firstNameText = (EditText) findViewById(R.id.editText); //Connecting the variable to the textbox
         secondNameText = (EditText) findViewById(R.id.insertLast);
         mobilePhoneNumber = (EditText) findViewById(R.id.insertPhoneNumber);
@@ -78,6 +79,7 @@ public class InsertDetailsActivity extends AppCompatActivity {
         etaSpinner = (Spinner) findViewById(R.id.etaSpinner);
         hospitalSpinner = (Spinner) findViewById(R.id.hospitalSpinnerXML);
         editProblem = (EditText) findViewById(R.id.editText2); //Connecting the variable to the textbox
+        extraComments = (EditText) findViewById(R.id.insertAdditional);
         buttonAdd = (Button) findViewById(R.id.button2); //Connecting the variable to the submit button
         returnButton = (Button) findViewById(R.id.button3);
         uploadPhoto = (Button) findViewById(R.id.pictureUpload);
@@ -162,11 +164,11 @@ public class InsertDetailsActivity extends AppCompatActivity {
         String dob = this.dobText.getText().toString().trim(); //Date of Birth as a string
         String gender = this.genderText.getSelectedItem().toString(); //Gender as a string
         String problem = this.editProblem.getText().toString().trim(); //The string that stores the problem. Grabs it for the problem box
-        String tempId = this.uniqueId.getText().toString().trim(); //The unique id stored as a string
         String eta = this.etaSpinner.getSelectedItem().toString();
+        String additional = this.extraComments.getText().toString().trim();
 
-        if(errorChecking(firstName, secondName, phone, dob, problem, tempId)==true){ //Runs the error checking function
-            addPersonFunction(firstName, secondName, phone, dob, gender, problem, tempId, eta); //Put messing code function at the bottom
+        if(errorChecking(firstName, secondName, phone, dob, problem)==true){ //Runs the error checking function
+            addPersonFunction(firstName, secondName, phone, dob, gender, problem, eta, additional); //Put messing code function at the bottom
             uploadingPhoto();
         }
 
@@ -178,6 +180,7 @@ public class InsertDetailsActivity extends AppCompatActivity {
             filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    return;
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -188,29 +191,17 @@ public class InsertDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private boolean errorChecking(String firstName, String lastName, String phone, String dob, String problem, String tempId ){
+    private boolean errorChecking(String firstName, String lastName, String phone, String dob, String problem){
 
         //If fields are empty
-        if(TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(dob) || TextUtils.isEmpty(problem) || TextUtils.isEmpty(tempId)){
+        if(TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(dob) || TextUtils.isEmpty(problem)){
             Toast.makeText(this, "Enter data into the fields", Toast.LENGTH_LONG).show(); //The error message
-            return false;
-        }
-
-        //If the key isn't 3 digits
-        if(tempId.length()!=3){
-            Toast.makeText(this, "Primary key has to be 3 digits", Toast.LENGTH_LONG).show(); //The error message
-            return false;
-        }
-
-        //If the key contains letters
-        if(!tempId.matches("[0-9]+")){
-            Toast.makeText(this, "Primary key can only be numbers", Toast.LENGTH_LONG).show(); //The error message
             return false;
         }
 
         //If phone contains letters
         if(!phone.matches("[0-9]+")){
-            Toast.makeText(this, "Phone amountOfEntries can only be numbers", Toast.LENGTH_LONG).show(); //The error message
+            Toast.makeText(this, "Phone number can only contain numbers", Toast.LENGTH_LONG).show(); //The error message
             return false;
         }
 
@@ -226,14 +217,74 @@ public class InsertDetailsActivity extends AppCompatActivity {
             return false;
         }
 
-
-
-        //If phone number isn't valid
-        if(phone.length()!=10){
-            Toast.makeText(this, "Invalid phone number.", Toast.LENGTH_LONG).show();
+        String[] splitString = dob.split("/");
+        int[] splitInt = new int[splitString.length];
+        for(int i = 0; i < splitString.length; i++){
+            String number = splitString[i];
+            splitInt[i] = Integer.parseInt(number);
+        }
+        if(splitInt.length < 3){
+            Toast.makeText(this, "Invalid length for Date of Birth", Toast.LENGTH_LONG).show();
             return false;
         }
-        if(phone.length()!=8){
+        if(splitInt.length > 3){
+            Toast.makeText(this, "Invalid length for Date of Birth", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        char slash;
+
+        //If day isn't two digits
+        slash = dob.charAt(1);
+        if(slash == '/'){
+            Toast.makeText(this, "Please set day as two digits", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+
+        //If month isn't two digits
+        slash = dob.charAt(4);
+        if(slash == '/'){
+            Toast.makeText(this, "Please set month as two digits", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        //If third character isn't a '/'
+        slash = dob.charAt(2);
+        if(slash !='/'){
+            Toast.makeText(this, "Use '/' To separate dates (Days).", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+
+        slash = dob.charAt(5);
+
+        //If fifth character isn't a '/'
+        if(slash !='/'){
+            Toast.makeText(this, "Use '/' To separate dates (Months).", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if(splitInt[0] > 31 ){
+            Toast.makeText(this, "Incorrect day", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if(splitInt[0] <= 0){
+            Toast.makeText(this, "Incorrect day", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if(splitInt[1] > 12){
+            Toast.makeText(this, "Incorrect month", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if(splitInt[1] <= 0){
+            Toast.makeText(this, "Incorrect month", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        dobClassVariable = Integer.toString(splitInt[0]) + Integer.toString(splitInt[1]) + Integer.toString(splitInt[2]);
+
+        //If phone number isn't valid
+        if(phone.length()!=10 && phone.length()!=8){
             Toast.makeText(this, "Invalid phone number.", Toast.LENGTH_LONG).show();
             return false;
         }
@@ -241,10 +292,10 @@ public class InsertDetailsActivity extends AppCompatActivity {
         return true;
     }
 
-    private void addPersonFunction(String firstName, String secondName, String phone, String dob, String gender, String problem, String tempId, String eta){
-        actualId = tempId + firstName + secondName;//Declaring unique id
+    private void addPersonFunction(String firstName, String secondName, String phone, String dob, String gender, String problem, String eta, String additional){
+        actualId = dobClassVariable + firstName + " " + secondName;
         Person person = new Person(actualId, firstName,secondName,phone,dob,gender); //Creating the person object
-        Problem problemObject = new Problem(problem, actualId, eta); //Creating the problem object
+        Problem problemObject = new Problem(problem, actualId, eta, additional); //Creating the problem object
         problemId = databasePerson.push().getKey(); //The unique problem id for database storage
         Map<String, Object> postValues = person.toMap(); //Storing object in a map
         Map<String, Object> postValues2 = problemObject.toMap(); //Storing problems in a map
