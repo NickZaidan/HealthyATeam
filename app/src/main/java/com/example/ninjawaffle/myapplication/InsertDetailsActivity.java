@@ -192,7 +192,7 @@ public class InsertDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private boolean errorChecking(String firstName, String lastName, String phone, String dob, String problem){
+    public boolean errorChecking(String firstName, String lastName, String phone, String dob, String problem){
 
         //If fields are empty
         if(TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(dob) || TextUtils.isEmpty(problem)){

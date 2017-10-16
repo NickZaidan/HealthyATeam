@@ -155,7 +155,7 @@ public class InsertMedicareActivity extends AppCompatActivity {
     }
 
 
-    private boolean errorChecking(String medicareNumber, String medicareID, String medicareProblem){
+    public boolean errorChecking(String medicareNumber, String medicareID, String medicareProblem){
 
         //If any field is empty
         if(TextUtils.isEmpty(medicareNumber) || TextUtils.isEmpty(medicareID) || TextUtils.isEmpty(medicareProblem)){
