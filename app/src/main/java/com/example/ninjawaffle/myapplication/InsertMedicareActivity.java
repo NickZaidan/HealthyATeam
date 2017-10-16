@@ -100,6 +100,8 @@ public class InsertMedicareActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 submitEntry();
+                Intent intent = new Intent(InsertMedicareActivity.this, OnSuccessActivity.class);
+                startActivity(intent); //Changes page
             }
         });
 

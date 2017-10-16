@@ -18,5 +18,5 @@
     </string-array>
 
     <string name="symptoms">Include any problems you are experiencing</string>
-
+    <string name="success">Thank you! Your information has been sent to the Emergency Department of your selected hospital. Staff may contact you if more information is needed.\n\nPlease let them know once you have arrived.</string>
 </resources>

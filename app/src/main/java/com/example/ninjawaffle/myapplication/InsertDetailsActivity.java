@@ -45,7 +45,6 @@ public class InsertDetailsActivity extends AppCompatActivity {
     String dobClassVariable;
 
     //XML Declaration variables
-    EditText uniqueId;
     EditText firstNameText; //The field in which you enter patients name. Null at this stage.
     EditText secondNameText;
     EditText mobilePhoneNumber;
@@ -117,6 +116,8 @@ public class InsertDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addPerson(); //When button is pressed. Run the addPerson method
+                Intent intent = new Intent(InsertDetailsActivity.this, OnSuccessActivity.class);
+                startActivity(intent); //Changes page
             }
         });
 
