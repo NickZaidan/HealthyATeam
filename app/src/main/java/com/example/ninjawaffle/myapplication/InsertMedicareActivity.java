@@ -100,8 +100,7 @@ public class InsertMedicareActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 submitEntry();
-                Intent intent = new Intent(InsertMedicareActivity.this, OnSuccessActivity.class);
-                startActivity(intent); //Changes page
+
             }
         });
 
@@ -151,6 +150,8 @@ public class InsertMedicareActivity extends AppCompatActivity {
         if(errorChecking(medicareNumber, medicareID, medicareProblem)==true){
             addPersonFunction(medicareNumber, medicareID, medicareProblem, medicareETA, additional);
             uploadingPhoto();
+            Intent intent = new Intent(InsertMedicareActivity.this, OnSuccessActivity.class);
+            startActivity(intent); //Changes page
         }
     }
 
@@ -213,6 +214,5 @@ public class InsertMedicareActivity extends AppCompatActivity {
         childUpdate2.put("/" + "MedicareEntry" + "/" +  id, postValues2); //Directory of where to put problem in database
         databaseMedicare.updateChildren(childUpdate); //Updating
         databaseMedicarePerson.updateChildren(childUpdate2);
-        Toast.makeText(this, "Problem Submitted", Toast.LENGTH_LONG).show(); //A toast is just like a display message. This will notify people that the push was successful
     }
 }

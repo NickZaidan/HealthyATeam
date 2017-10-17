@@ -1,10 +1,15 @@
 package com.example.ninjawaffle.myapplication;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,6 +30,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -43,6 +49,7 @@ public class InsertDetailsActivity extends AppCompatActivity {
     String actualId;
     String problemId;
     String dobClassVariable;
+    private File imageFile;
 
     //XML Declaration variables
     EditText firstNameText; //The field in which you enter patients name. Null at this stage.
@@ -116,8 +123,7 @@ public class InsertDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addPerson(); //When button is pressed. Run the addPerson method
-                Intent intent = new Intent(InsertDetailsActivity.this, OnSuccessActivity.class);
-                startActivity(intent); //Changes page
+
             }
         });
 
@@ -129,6 +135,7 @@ public class InsertDetailsActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
                 startActivityForResult(intent, 0);
+
             }
         });
 
@@ -138,13 +145,11 @@ public class InsertDetailsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-
         if(requestCode == 0 && resultCode == RESULT_OK){
             uri = data.getData();
         }
 
     }
-
     private void updateSpinner(){
         String input = "Westmead Hospital - " + amountOfEntries + " patients";
         ArrayList<String> test = new ArrayList<>();
@@ -171,6 +176,8 @@ public class InsertDetailsActivity extends AppCompatActivity {
         if(errorChecking(firstName, secondName, phone, dob, problem)==true){ //Runs the error checking function
             addPersonFunction(firstName, secondName, phone, dob, gender, problem, eta, additional); //Put messing code function at the bottom
             uploadingPhoto();
+            Intent intent = new Intent(InsertDetailsActivity.this, OnSuccessActivity.class);
+            startActivity(intent); //Changes page
         }
 
     }
@@ -306,7 +313,6 @@ public class InsertDetailsActivity extends AppCompatActivity {
         childUpdate2.put("/" + problemId + "/", postValues2); //Directory of where to put problem in database
         databasePerson.updateChildren(childUpdate); //Updating
         databaseProblem.updateChildren(childUpdate2); //Updating
-        Toast.makeText(this, "Problem added", Toast.LENGTH_LONG).show(); //A toast is just like a display message. This will notify people that the push was successful
 
     }
 }
